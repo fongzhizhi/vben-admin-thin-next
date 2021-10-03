@@ -1,31 +1,51 @@
 {
   "compilerOptions": {
+    // 编译目标。esnext为最新版本
     "target": "esnext",
+    // 指定生成哪个模块系统代码。esnext为最新版本
     "module": "esnext",
+    // 处理的模块类型
     "moduleResolution": "node",
+    // 是否启用严格模式
     "strict": true,
+    // 是否禁止对同一个文件的不一致引用
     "forceConsistentCasingInFileNames": true,
+    // 是否允许没有设置默认到处的模块中默认导入
     "allowSyntheticDefaultImports": true,
+    // 禁用函数参数双向协变检查
     "strictFunctionTypes": false,
+    // 支持jsx
     "jsx": "preserve",
+    // 解析相对模块的基准目录
     "baseUrl": ".",
+    // 允许编译js文件
     "allowJs": true,
+    // sourceMap相关
     "sourceMap": true,
     "esModuleInterop": true,
     "resolveJsonModule": true,
+    // 未使用的局部变量报错
     "noUnusedLocals": true,
+    // 未使用的参数报错
     "noUnusedParameters": true,
+    // 启用实验性的ES装饰器
     "experimentalDecorators": true,
+    // 编译时需要引入的库文件
     "lib": ["dom", "esnext"],
+    // 包含的类型声明文件名
     "types": ["vite/client", "jest"],
+    // 包含的类型声明文件路径
     "typeRoots": ["./node_modules/@types/", "./types"],
+    // 隐含any类型推断报错
     "noImplicitAny": false,
     "skipLibCheck": true,
+    // 模块名到基于baseUrl路径的映射
     "paths": {
       "/@/*": ["src/*"],
       "/#/*": ["types/*"]
     }
   },
+  // ts相关路径
   "include": [
     "tests/**/*.ts",
     "src/**/*.ts",
@@ -39,5 +59,6 @@
     "mock/**/*.ts",
     "vite.config.ts"
   ],
+  // ts排除路径
   "exclude": ["node_modules", "tests/server/**/*.ts", "dist", "**/*.js"]
 }
