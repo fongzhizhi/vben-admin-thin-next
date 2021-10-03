@@ -20,21 +20,26 @@ const __APP_INFO__ = {
 };
 
 export default ({ command, mode }: ConfigEnv): UserConfig => {
+  // mode => 模式: decelopment | production
   const root = process.cwd();
-
+  // 加载配置信息键值对
   const env = loadEnv(mode, root);
 
-  // The boolean type read by loadEnv is a string. This function can be converted to boolean type
+  // 配置信息包装
   const viteEnv = wrapperEnv(env);
 
   const { VITE_PORT, VITE_PUBLIC_PATH, VITE_PROXY, VITE_DROP_CONSOLE } = viteEnv;
 
-  const isBuild = command === 'build';
+  const isBuild = command === 'build'; // 编译场景：build | serve
 
   return {
+    // 公共基础路径
     base: VITE_PUBLIC_PATH,
+    // 文件根目录，用于查找入口文件(默认index.html)
     root,
+    // 模块相关
     resolve: {
+      // 模块路径别名[同tsconfig.json的paths]
       alias: [
         {
           find: 'vue-i18n',
@@ -52,16 +57,25 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
         },
       ],
     },
+    // 服务器相关
     server: {
       // Listening on all local IPs
       host: true,
+      // 端口地址
       port: VITE_PORT,
-      // Load proxy configuration from .env
+      // 代理配置
       proxy: createProxy(VITE_PROXY),
+      // 热更新
+      // hmr: false,
     },
+    // 打包构建相关
     build: {
       target: 'es2015',
+      // 构建目录（为啥不用.env文件配置）
       outDir: OUTPUT_DIR,
+      // 代码压缩方式
+      minify: 'terser',
+      // terser配置
       terserOptions: {
         compress: {
           keep_infinity: true,
@@ -69,20 +83,25 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
           drop_console: VITE_DROP_CONSOLE,
         },
       },
-      // Turning off brotliSize display can slightly reduce packaging time
+      // 压缩大小报告(禁用可提升大型项目打包效率)
       brotliSize: false,
+      // chunk大小警告，默认500kbs
       chunkSizeWarningLimit: 2000,
     },
+    // 定义全局常量替换方式
     define: {
       // setting vue-i18-next
-      // Suppress warning
+      __VUE_I18N_FULL_INSTALL__: true,
+      __VUE_I18N_LEGACY_API__: true,
       __INTLIFY_PROD_DEVTOOLS__: false,
       __APP_INFO__: JSON.stringify(__APP_INFO__),
     },
-
+    // css相关
     css: {
+      // css预处理配置
       preprocessorOptions: {
         less: {
+          // css全局变量
           modifyVars: generateModifyVars(),
           javascriptEnabled: true,
         },

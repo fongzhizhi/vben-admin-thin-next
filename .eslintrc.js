@@ -2,12 +2,15 @@
 const { defineConfig } = require('eslint-define-config');
 module.exports = defineConfig({
   root: true,
+  // 启用环境设置
   env: {
     browser: true,
     node: true,
     es6: true,
   },
+  // 解析器设置
   parser: 'vue-eslint-parser',
+  // 解析器首选项
   parserOptions: {
     parser: '@typescript-eslint/parser',
     ecmaVersion: 2020,
@@ -17,6 +20,7 @@ module.exports = defineConfig({
       jsx: true,
     },
   },
+  // 扩展
   extends: [
     'plugin:vue/vue3-recommended',
     'plugin:@typescript-eslint/recommended',
@@ -24,6 +28,7 @@ module.exports = defineConfig({
     'plugin:prettier/recommended',
     'plugin:jest/recommended',
   ],
+  // 自定义规则
   rules: {
     'vue/script-setup-uses-vars': 'error',
     '@typescript-eslint/ban-ts-ignore': 'off',

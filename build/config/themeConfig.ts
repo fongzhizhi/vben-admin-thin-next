@@ -1,11 +1,13 @@
 import { generate } from '@ant-design/colors';
 
+/**主题色 */
 export const primaryColor = '#0960bd';
-
+/**默认主题 */
 export const darkMode = 'light';
 
 type Fn = (...arg: any) => any;
 
+// 主题类型
 type GenerateTheme = 'default' | 'dark';
 
 export interface GenerateColorsParams {
